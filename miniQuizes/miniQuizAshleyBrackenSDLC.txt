@@ -1,0 +1,32 @@
+1. There are plenty of modified waterfall models that hoped to solve the issues with the "pure" waterfall model. One of these was created by an individual named Peter Degrace it implimented the waterfall method but with overlapping phases. What is the name of his model?
+A.Agile
+B.Waterfalls with SubProjects
+C.[Correct]Sashimi Model
+D.Waterfalls with risk reduction
+
+2.Boehm Claims that there are many misconceptions about the Spiral Development model. Which of the following is not a signifigant misconception about this Software Development Lifecyle model.
+A.Spiral is just a sequence of waterfall increments
+B.Everything on the project follows a single spiral sequence
+C.[Correct]There is contant backtracking to revisit previous decisions
+D.Every element in the diagram needs to be visited in the order indicated.
+
+3.Which of the following is one of the 12 development principles of Agile
+A.Welcome changing requirements, except in late development.
+B.Best architectures, requirements, and designs emerge from company organized teams
+C.[Correct]Face-to-face conversation is the best form of communication (co-location)
+D. Documentation is the primary measure of progress
+
+4. Which of the following Agile frameworks focus on managing the flow of work
+A.agile modeling
+B.Adaptive 
+C.[Correct]Scrum
+D.Predictive
+
+5. Out of the following descriptions which is the best description of a user story?
+A.[Correct]Informal, natural language description of one or more features of a software system. Written from the perspective of an end user. 
+B.An ordered list of features to impliment and a description of how to impliment them. 
+C. An entire life story about what an end user may have gone through before using the software. 
+D. Contract written by clients to be fulfilled by development teams, one point at a time. 
+
+
+

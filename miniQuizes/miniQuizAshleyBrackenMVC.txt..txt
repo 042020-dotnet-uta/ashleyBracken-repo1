@@ -1,0 +1,31 @@
+Mini Quiz
+
+1:Which of the following are synchronous equivalent to PartialAsync?
+A.[Correct]Partial
+B.RenderPartial
+C.Select
+D.Anchor
+
+2: How would you change whether text runs Horizontally or Vertically in CSS?
+A.[Correct]Writing-Mode
+B.Writing-Dir
+C.Write-Mode
+D.Write-Dir
+
+3:Model If bind attribute specifies a customer prefix and the model binding can't find a key with the prefix it will then look for what?
+A.[Correct]ID without the prefix
+B.Prefix only
+C.Method without the prefix
+D.Any Property named the declared prefix
+
+4: Which of the following do Views support?
+A.[Correct]Dependency Injection
+B.Dependency Rejection
+C.Injection Dependents
+D. Injections
+
+5:Which of the following is a benefit of using DataBinding rather than Form Collection?
+A.[Correct]Data Binding Scales better with complex data.
+B.Data Binding forces you to bind all properties of the model class, this prevents you from forgetting to bind certain properties
+C. Non string data must be convertes to appropriate type/ 
+D.Model Binding is a one step process
