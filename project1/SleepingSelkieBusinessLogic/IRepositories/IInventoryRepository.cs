@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SleepingSelkieBusinessLogic.BusinessModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SleepingSelkieBusinessLogic.IRepositories
 {
-    interface IInventoryRepository
+  public  interface IInventoryRepository
     {
+        Task<IEnumerable<Inventory>> GetAllInvByStoreID(int storeID);
     }
 }

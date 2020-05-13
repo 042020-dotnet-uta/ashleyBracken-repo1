@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace SleepingSelkieDataAccess.DataModels
 {
-    class Store
+    public class Store
     {
+        [Key]
+        public int StoreID { get; set; }
+        public string StoreName { get; set; }
     }
 }

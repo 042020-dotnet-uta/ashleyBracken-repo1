@@ -4,7 +4,11 @@ using System.Text;
 
 namespace SleepingSelkieBusinessLogic.BusinessModels
 {
-    class Products
+    public class Products
     {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public string ProductDescription { get; set; }
+        public int ProductPrice { get; set; }
     }
 }
