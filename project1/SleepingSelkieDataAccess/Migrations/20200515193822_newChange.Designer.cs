@@ -10,8 +10,8 @@ using SleepingSelkieDataAccess;
 namespace SleepingSelkieDataAccess.Migrations
 {
     [DbContext(typeof(SelkieContext))]
-    [Migration("20200513200201_changedproducts")]
-    partial class changedproducts
+    [Migration("20200515193822_newChange")]
+    partial class newChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace SleepingSelkieDataAccess.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreID")
+                    b.Property<int?>("StoreID")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID");
@@ -141,9 +141,7 @@ namespace SleepingSelkieDataAccess.Migrations
                 {
                     b.HasOne("SleepingSelkieDataAccess.DataModels.Store", "Store")
                         .WithMany()
-                        .HasForeignKey("StoreID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StoreID");
                 });
 
             modelBuilder.Entity("SleepingSelkieDataAccess.DataModels.Inventory", b =>

@@ -16,17 +16,56 @@ namespace SleepingSelkie.Controllers
     public class CustomerController : Controller
     {
         private readonly IInventoryRepository inventoryRepository;
-
-        public CustomerController(IInventoryRepository repository)
+        private readonly ICustomerRepository custRepository;
+        private string curCustName;
+        private string curCustphoneNumber;
+        public CustomerController(IInventoryRepository repository, ICustomerRepository customerRepository)
         {
             inventoryRepository = repository;
+            custRepository = customerRepository;
+        }
+
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Customer Login";
+            return View();
         }
         public ActionResult SignUp()
         {
+            var modelView = new CustomerViewModel { };
             ViewBag.Message = "Customer Sign Up";
-            return View();
+            return View(modelView);
         }
 
+      [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SignUp(CustomerViewModel viewModel)
+        {
+            try 
+            {
+                //Serverside validation to double check the info provided
+                if (ModelState.IsValid)
+                {
+                    curCustName = viewModel.FirstName;
+                    curCustphoneNumber = viewModel.PhoneNumber;
+                    var customer = new Customer
+                    {
+                        FirstName = viewModel.FirstName,
+                        LastName = viewModel.LastName,
+                        PhoneNumber = viewModel.PhoneNumber,
+                        StoreName = viewModel.storeName.ToString(),
+                    };
+                    await custRepository.AddCustomerAsync(customer);
+
+                    return RedirectToAction("Home");
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError("Invalid Customer Info", e.Message);
+                return View(viewModel);
+            }
+        }
         public async Task<ActionResult>  Inv (int id)
         {
             IEnumerable<Inventory> inv = await inventoryRepository.GetAllInvByStoreID(id);

@@ -6,11 +6,12 @@ namespace SleepingSelkieBusinessLogic.BusinessModels
 {
    public class Customer
     {
-        public string CustomerID { get; set; }
+        public string PhoneNumber { get; set; }
         private string firstName;
         public string FirstName { get => firstName; set => firstName = value; }
         private string lastName;
         public string LastName { get => lastName; set => lastName = value; }
         public Store Store { get; set; }
+        public string StoreName { get; set; }
     }
 }

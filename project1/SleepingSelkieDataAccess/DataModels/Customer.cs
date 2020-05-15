@@ -15,6 +15,5 @@ namespace SleepingSelkieDataAccess.DataModels
         private string lastName;
         public string LastName { get => lastName; set => lastName = value; }
         public Store Store { get; set; }
-        public int StoreID { get; set; }
     }
 }

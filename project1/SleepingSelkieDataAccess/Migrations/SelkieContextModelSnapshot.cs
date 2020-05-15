@@ -30,7 +30,7 @@ namespace SleepingSelkieDataAccess.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StoreID")
+                    b.Property<int?>("StoreID")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID");
@@ -139,9 +139,7 @@ namespace SleepingSelkieDataAccess.Migrations
                 {
                     b.HasOne("SleepingSelkieDataAccess.DataModels.Store", "Store")
                         .WithMany()
-                        .HasForeignKey("StoreID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StoreID");
                 });
 
             modelBuilder.Entity("SleepingSelkieDataAccess.DataModels.Inventory", b =>
