@@ -9,6 +9,11 @@ namespace SleepingSelkieDataAccess.Repositories
 {
     class OrdersRepository : IOrdersRepository
     {
+        public Task AddCustomerAsync(Orders order)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Orders>> GetOrdersByCustomer(string customerID)
         {
             throw new NotImplementedException();

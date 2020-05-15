@@ -17,12 +17,12 @@ namespace SleepingSelkieDataAccess
         public DbSet<Customer> Customers { get; set; }
 
         
-       protected override void OnConfiguring(DbContextOptionsBuilder options)
+     /*  protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             if (!options.IsConfigured)
             {
                 options.UseSqlServer("Data Source=TheSleepingSelkie.db");
             }
-        }
+        }*/
     }
 }
