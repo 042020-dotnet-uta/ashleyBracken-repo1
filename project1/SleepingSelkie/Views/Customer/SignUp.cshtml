@@ -1,4 +1,5 @@
 ﻿@model SleepingSelkie.Models.CustomerViewModel
+
 @{
     ViewData["Title"] = "Sign Up";
 }
@@ -8,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login">
+        <form asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -21,22 +22,24 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 @Html.DropDownList("Store Name",
                       new SelectList(Enum.GetValues(typeof(StoreName))),
                       "Select Store",
                       new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" />
+                <input type="submit" value="SignUp" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    // <a asp-action="Index">Back to List</a>
-    <a asp-action="SignUp">Sign Up</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
