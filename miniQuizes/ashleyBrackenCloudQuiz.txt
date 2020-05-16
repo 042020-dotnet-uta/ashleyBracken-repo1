@@ -1,0 +1,29 @@
+Question 1: Which of the following is not a benifit of cloud computing?
+A:the ability to scale elastically
+B:Cloud computing makes data backup, disaster recovery, and business continuity easier 
+C:Helps protect your data
+D:Data can not be mirrored at multiple sites
+
+Question 2: Which Cloud Computing Service model does Azure fall under?
+A:Software as a Service (SaaS)
+B:• Platform as a Service (PaaS)
+C:Infrastructure as a Service (IaaS) 
+D:Development as a Service (DaaS)
+
+Question 3:Which of the following is SaaS
+A:Azure
+B:Email
+C:.NetCore
+D:SonarCloud
+
+Question 4:The concept has been around since the 1960s but About how long has the terminology Cloud Computing been around?
+A:2010s
+B:2000s
+C:1990s
+D:1980s
+
+Question 5:Which of the following is a disadvantage to using cloud computing
+A:Cloud computing eliminates the capital expense of buying hardware and software 
+B: Cloud Computing services are often slower than their counterparts
+C:You can only access your applications if you have an internet connection
+D: Decreases Productivity
