@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SleepingSelkieBusinessLogic.BusinessModels;
 using SleepingSelkieBusinessLogic.IRepositories;
+using SleepingSelkieDataAccess.DataModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SleepingSelkieDataAccess.Repositories
 {
@@ -17,7 +18,7 @@ namespace SleepingSelkieDataAccess.Repositories
         {
             dbContext = selkieContext;
         }
-        public async Task AddCustomerAsync(Customer customer)
+        public async Task AddCustomerAsync(SleepingSelkieBusinessLogic.BusinessModels.Customer customer)
         {
             var custStore = dbContext.Stores
            .Where(c => c.StoreName == customer.StoreName).FirstOrDefault();
@@ -38,9 +39,18 @@ namespace SleepingSelkieDataAccess.Repositories
             
         }
 
-        public Task<Customer> GetCustomerByName(string fName, string lName)
+        public async Task<SleepingSelkieBusinessLogic.BusinessModels.Customer> GetCustomerByName(string fName, string lName)
         {
-            throw new NotImplementedException();
+            var cust = await dbContext.Customers.Include(s=>s.Store)
+           .Where(s => s.FirstName == fName && s.LastName == lName).FirstOrDefaultAsync();
+
+                return new SleepingSelkieBusinessLogic.BusinessModels.Customer
+                {
+                    FirstName = cust.FirstName,
+                    LastName = cust.LastName,
+                    PhoneNumber = cust.CustomerID,
+                    StoreName = cust.Store.StoreName,
+                };
         }
     }
 }

@@ -22,8 +22,8 @@ namespace SleepingSelkie.Models
         [Display(Name ="Price")]
         public int Price { get; set; }
 
-        [Display(Name ="Quantity")]
+        [Display(Name ="Quantity In Stock")]
         public int Quantity { get; set;}
-     
+
     }
 }

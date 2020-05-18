@@ -28,6 +28,11 @@ namespace SleepingSelkie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+         //This next block adds the session services needed to use sesssions for login
+            //services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            /// Adds Database context with options to the services. 
             services.AddDbContext<SelkieContext>(options =>
           options.UseSqlServer(Configuration.GetConnectionString("TheSleepingSelkie.db")));
           services.AddScoped<IInventoryRepository, InventoryRepository>();
@@ -49,6 +54,7 @@ namespace SleepingSelkie
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

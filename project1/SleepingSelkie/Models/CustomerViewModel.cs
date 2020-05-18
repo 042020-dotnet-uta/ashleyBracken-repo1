@@ -9,7 +9,7 @@ using SleepingSelkieBusinessLogic.BusinessModels;
 
 namespace SleepingSelkie.Models
 {
-    public class CustomerViewModel
+    public class CustomerViewModel 
     {
         [Display(Name = "First Name")]
         [Required]
