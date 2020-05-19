@@ -4,9 +4,8 @@ namespace SleepingSelkieBusinessLogic.BusinessModels
 {
     public class Orders
     {
-        public int OrderID { get; set; }
-        public string Customer { get; set; }
-        public string Store { get; set; }
+        public string CustomerID { get; set; }
+        public string StoreName { get; set; }
         public int ManaPotionsBought { get; set; }
         public int HealthPotionsBought { get; set; }
         public int StaminaPotionsBought { get; set; }

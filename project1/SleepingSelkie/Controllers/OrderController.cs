@@ -25,7 +25,7 @@ namespace SleepingSelkie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Order (OrderListModel listModel)
+        public async  Task <ActionResult> Order (OrderListModel listModel)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SleepingSelkie.Controllers
                     {
                         CustomerName = HttpContext.Session.GetString("CustName"),
                         StoreName = listModel.order.Select(x => x.StoreName).FirstOrDefault(),
-
+                        CustomerPhoneNumber = HttpContext.Session.GetString("CustPhoneNumber"),
                         ManaPotionsBought = listModel.order
                         .Where(x => x.ProductName == "Mana Potion").Select(x => x.OrderAmount).FirstOrDefault(),
                         ClericsTalismanBought = listModel.order
@@ -46,7 +46,21 @@ namespace SleepingSelkie.Controllers
                         .Where(x => x.ProductName == "Stamina Potion").Select(x => x.OrderAmount).FirstOrDefault(),
                         MagicWandsBought = listModel.order
                         .Where(x => x.ProductName == "Magic Wand").Select(x => x.OrderAmount).FirstOrDefault(),
+                        Date = DateTime.Today,
                     };
+
+                    var order = new Orders
+                    {
+                        CustomerID = viewModel.CustomerPhoneNumber,
+                        StoreName = viewModel.StoreName,
+                        ManaPotionsBought = viewModel.ManaPotionsBought,
+                        StaminaPotionsBought = viewModel.StaminaPotionsBought,
+                        HealthPotionsBought = viewModel.HealthPotionsBought,
+                        ClericsTalismanBought = viewModel.ClericsTalismanBought,
+                        MagicWandsBought = viewModel.ClericsTalismanBought,
+                        Date = DateTime.Today,
+                    };
+                    await ordersRepository.AddOrdersAsync(order);
                     return View(viewModel);
                 }
                 else return RedirectToAction("Index", " Home");

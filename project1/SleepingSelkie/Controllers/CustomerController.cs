@@ -46,7 +46,8 @@ namespace SleepingSelkie.Controllers
                     curCustName = customer.FirstName +" "+ customer.LastName;
                     curCustphoneNumber = customer.PhoneNumber;
                     HttpContext.Session.SetString("CustName",curCustName);
-          
+                    HttpContext.Session.SetString("CustPhoneNumber", curCustphoneNumber);
+
                     if (customer.StoreName == "SleepingSelkiePrimaryLocation")
                     {
                         id = 1;

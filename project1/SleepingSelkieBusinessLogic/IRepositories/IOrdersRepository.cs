@@ -8,7 +8,7 @@ namespace SleepingSelkieBusinessLogic.IRepositories
 {
    public interface IOrdersRepository
     {
-        Task AddCustomerAsync(Orders order);
+        Task AddOrdersAsync(Orders order);
         Task<IEnumerable<Orders>> GetOrdersByStore(int storeID);
         Task<IEnumerable<Orders>> GetOrdersByCustomer(string customerID);
     }

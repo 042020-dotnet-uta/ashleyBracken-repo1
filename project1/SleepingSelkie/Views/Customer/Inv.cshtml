@@ -12,25 +12,23 @@
 
             <tr>
                 @if (Model != null)
-                {
-                    for (var i = 0; i < Model.Count(); i++)
+                    for (var i = 0; i < 1; i++)
                     {
                         SleepingSelkie.Models.InventoryViewModel item = @Model[i];
-                <th>
-                    @Html.DisplayNameFor(model => item.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.ProductDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.Quantity)
-                </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => item.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => item.ProductDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => item.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(modelItem => item.Quantity)
+                        </th>
                     }
-                }
-                <th></th>
+
             </tr>
         </thead>
         <tbody>
@@ -40,16 +38,13 @@
                 {
                     SleepingSelkie.Models.InventoryViewModel item = @Model[i];
                     <tr>
-                        
                         <td>
                             @Html.DisplayFor(modelItem => item.ProductName)
                             <input type="hidden" value="@item.ProductName" name="order[@i].ProductName">
                         </td>
                         <td>
-                            <input type="hidden" value=" @item.StoreName" name=" order[@i].StoreName" />
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.ProductDescription)
+                            <input type="hidden" value=" @item.StoreName" name=" order[@i].StoreName" />
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Price)
@@ -59,7 +54,7 @@
                         </td>
                         <td>
                             <label asp-for="@item.OrderAmount" class="control-label"></label>
-                            <input asp-for="@item.OrderAmount"name =" order[@i].OrderAmount"class="form-control" />
+                            <input name="order[@i].OrderAmount" class="form-control" />
                             <span asp-validation-for="@item.OrderAmount" class="text-danger"></span>
                         </td>
                     </tr>

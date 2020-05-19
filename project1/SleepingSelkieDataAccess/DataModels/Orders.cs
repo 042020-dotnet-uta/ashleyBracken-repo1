@@ -17,7 +17,6 @@ namespace SleepingSelkieDataAccess.DataModels
         public int StaminaPotionsBought { get; set; }
         public int MagicWandsBought { get; set; }
         public int ClericsTalismanBought { get; set; }
-        private DateTime date;
-        public DateTime Date { get => date; set => date = value; }
+        public DateTime Date { get; set; }
     }
 }

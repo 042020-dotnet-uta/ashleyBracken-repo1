@@ -2,16 +2,39 @@
 using SleepingSelkieBusinessLogic.IRepositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
+
 
 namespace SleepingSelkieDataAccess.Repositories
 {
     public class OrdersRepository : IOrdersRepository
     {
-        public Task AddCustomerAsync(Orders order)
+        private readonly SelkieContext dbContext;
+
+        public OrdersRepository(SelkieContext selkieContext)
         {
-            throw new NotImplementedException();
+            dbContext = selkieContext;
+        }
+        public async Task AddOrdersAsync(SleepingSelkieBusinessLogic.BusinessModels.Orders order)
+        {
+
+            var newOrder = new DataModels.Orders
+            {
+                Customer = dbContext.Customers
+                .Where(x => x.CustomerID == order.CustomerID).FirstOrDefault(),
+                Store = dbContext.Stores
+                .Where(x => x.StoreName == order.StoreName).FirstOrDefault(),
+                ManaPotionsBought = order.ManaPotionsBought,
+                StaminaPotionsBought = order.StaminaPotionsBought,
+                HealthPotionsBought = order.HealthPotionsBought,
+                ClericsTalismanBought = order.ClericsTalismanBought,
+                MagicWandsBought = order.MagicWandsBought,
+                Date = order.Date,
+            };
+            dbContext.Add(newOrder);
+            await dbContext.SaveChangesAsync();
         }
 
         public Task<IEnumerable<Orders>> GetOrdersByCustomer(string customerID)
