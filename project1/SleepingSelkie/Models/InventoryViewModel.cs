@@ -8,7 +8,7 @@ using SleepingSelkieBusinessLogic.BusinessModels;
 
 namespace SleepingSelkie.Models
 {
-    public class InventoryViewModel : OrderItemViewModel
+    public class InventoryViewModel  
     {
         [Display (Name ="Store")]
         public string StoreName { get; set;}
@@ -25,5 +25,9 @@ namespace SleepingSelkie.Models
         [Display(Name ="Quantity In Stock")]
         public int Quantity { get; set;}
 
+        [Display(Name = "Order Amount")]
+        [Required]
+        [Range(0, 100, ErrorMessage = "Please try a different amount")]
+        public int OrderAmount { get; set; }
     }
 }

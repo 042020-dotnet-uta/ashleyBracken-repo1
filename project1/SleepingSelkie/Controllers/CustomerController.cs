@@ -43,7 +43,7 @@ namespace SleepingSelkie.Controllers
                 if (ModelState.IsValid)
                 {
                     var customer = await custRepository.GetCustomerByName(viewModel.FirstName, viewModel.LastName);
-                    curCustName = customer.FirstName + customer.LastName;
+                    curCustName = customer.FirstName +" "+ customer.LastName;
                     curCustphoneNumber = customer.PhoneNumber;
                     HttpContext.Session.SetString("CustName",curCustName);
           
@@ -122,19 +122,22 @@ namespace SleepingSelkie.Controllers
                 return View(viewModel);
             }
         }
+
+        [HttpGet]
         public async Task<ActionResult>  Inv (int id)
         {
             IEnumerable<Inventory> inv = await inventoryRepository.GetAllInvByStoreID(id);
             var invModels = inv.Select(i => new InventoryViewModel
             {
                 StoreName = i.StoreName,
-                ProductName =i.ProductName,
+                ProductName = i.ProductName,
                 ProductDescription = i.ProductDescription,
                 Price = i.ProductPrice,
                 Quantity = i.ProductQuantity,
+                OrderAmount = 0,
 
             }) ;
             return View(invModels);
-        }
+        } 
     }
 }

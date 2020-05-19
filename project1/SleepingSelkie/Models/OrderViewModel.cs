@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace SleepingSelkieBusinessLogic.BusinessModels
+namespace SleepingSelkie.Models
 {
-    public class Orders
+    public class OrderViewModel
     {
         public int OrderID { get; set; }
-        public string Customer { get; set; }
-        public string Store { get; set; }
+        public String CustomeNamer { get; set; }
+        public string StoreName { get; set; }
         public int ManaPotionsBought { get; set; }
         public int HealthPotionsBought { get; set; }
         public int StaminaPotionsBought { get; set; }
