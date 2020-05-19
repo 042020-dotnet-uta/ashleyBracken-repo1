@@ -7,8 +7,7 @@ namespace SleepingSelkie.Models
 {
     public class OrderViewModel
     {
-        public int OrderID { get; set; }
-        public String CustomeNamer { get; set; }
+        public string CustomerName { get; set; }
         public string StoreName { get; set; }
         public int ManaPotionsBought { get; set; }
         public int HealthPotionsBought { get; set; }

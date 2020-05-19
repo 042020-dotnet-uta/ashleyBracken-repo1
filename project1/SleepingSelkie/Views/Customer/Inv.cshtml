@@ -1,56 +1,69 @@
-﻿@model IEnumerable<SleepingSelkie.Models.InventoryViewModel>
-@using SleepingSelkie.Models;
+﻿@model List<SleepingSelkie.Models.InventoryViewModel>
 
 @{
     ViewData["Title"] = "Inv";
 }
 
-<h1>M</h1>
+<h1>Store Products</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-action="Order" asp-controller="Order" method="POST">
+<form asp-action="Order" asp-controller="Order" method="post">
     <table class="table">
         <thead>
 
             <tr>
+                @if (Model != null)
+                {
+                    for (var i = 0; i < Model.Count(); i++)
+                    {
+                        SleepingSelkie.Models.InventoryViewModel item = @Model[i];
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
+                    @Html.DisplayNameFor(model => item.ProductName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductDescription)
+                    @Html.DisplayNameFor(model => item.ProductDescription)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayNameFor(model => item.Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
+                    @Html.DisplayNameFor(model => item.Quantity)
                 </th>
+                    }
+                }
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(modelItem => item.OrderAmount)
-                        @Html.ValidationMessage("ErrorMessage", new { @class = "text-danger" })
-                    </td>
-                </tr>
+                for (var i = 0; i < @Model.Count(); i++)
+                {
+                    SleepingSelkie.Models.InventoryViewModel item = @Model[i];
+                    <tr>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                            <input type="hidden" value="@item.ProductName" name="order[@i].ProductName">
+                        </td>
+                        <td>
+                            <input type="hidden" value=" @item.StoreName" name=" order[@i].StoreName" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            <label asp-for="@item.OrderAmount" class="control-label"></label>
+                            <input asp-for="@item.OrderAmount"name =" order[@i].OrderAmount"class="form-control" />
+                            <span asp-validation-for="@item.OrderAmount" class="text-danger"></span>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

@@ -136,7 +136,7 @@ namespace SleepingSelkie.Controllers
                 Quantity = i.ProductQuantity,
                 OrderAmount = 0,
 
-            }) ;
+            }).ToList() ;
             return View(invModels);
         } 
     }

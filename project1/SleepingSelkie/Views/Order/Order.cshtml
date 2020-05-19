@@ -1,0 +1,66 @@
+﻿@model SleepingSelkie.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h1>Order</h1>
+
+<div>
+    <h4>OrderViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StoreName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StoreName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ManaPotionsBought)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ManaPotionsBought)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HealthPotionsBought)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HealthPotionsBought)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StaminaPotionsBought)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StaminaPotionsBought)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MagicWandsBought)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MagicWandsBought)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClericsTalismanBought)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClericsTalismanBought)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

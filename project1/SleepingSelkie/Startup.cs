@@ -37,6 +37,7 @@ namespace SleepingSelkie
           options.UseSqlServer(Configuration.GetConnectionString("TheSleepingSelkie.db")));
           services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddSingleton<Singleton>();
             services.AddScoped<Scoped>();
             services.AddTransient<Transient>();

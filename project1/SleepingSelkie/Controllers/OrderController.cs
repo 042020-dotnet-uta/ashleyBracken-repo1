@@ -4,9 +4,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SleepingSelkie.Models;
+using SleepingSelkie.Controllers;
 using SleepingSelkieBusinessLogic.BusinessModels;
 using SleepingSelkieBusinessLogic.IRepositories;
+using SleepingSelkie.Models;
 
 namespace SleepingSelkie.Controllers
 {
@@ -22,25 +23,39 @@ namespace SleepingSelkie.Controllers
             return View();
         }
 
-         [HttpPost]
-         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Order(InventoryViewModel inventoryView)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Order (OrderListModel listModel)
         {
-            try 
+            try
             {
                 if (ModelState.IsValid)
                 {
-                    var order = new Orders
+                    var viewModel = new OrderViewModel
                     {
-                        Customer = HttpContext.Session.GetString("CustName"),
+                        CustomerName = HttpContext.Session.GetString("CustName"),
+                        StoreName = listModel.order.Select(x => x.StoreName).FirstOrDefault(),
 
+                        ManaPotionsBought = listModel.order
+                        .Where(x => x.ProductName == "Mana Potion").Select(x => x.OrderAmount).FirstOrDefault(),
+                        ClericsTalismanBought = listModel.order
+                        .Where(x => x.ProductName == "Clerics Talisman").Select(x => x.OrderAmount).FirstOrDefault(),
+                        HealthPotionsBought = listModel.order
+                        .Where(x => x.ProductName == "Health Potion").Select(x => x.OrderAmount).FirstOrDefault(),
+                        StaminaPotionsBought = listModel.order
+                        .Where(x => x.ProductName == "Stamina Potion").Select(x => x.OrderAmount).FirstOrDefault(),
+                        MagicWandsBought = listModel.order
+                        .Where(x => x.ProductName == "Magic Wand").Select(x => x.OrderAmount).FirstOrDefault(),
                     };
+                    return View(viewModel);
                 }
+                else return RedirectToAction("Index", " Home");
             }
-            catch  (InvalidOperationException e)
-            { 
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError("Invalid Order Info", e.Message);
+                return RedirectToAction("Index", " Home");
             }
-            return View();
         }
 
     }

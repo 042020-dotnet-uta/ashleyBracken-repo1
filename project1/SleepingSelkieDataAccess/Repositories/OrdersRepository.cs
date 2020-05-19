@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SleepingSelkieDataAccess.Repositories
 {
-    class OrdersRepository : IOrdersRepository
+    public class OrdersRepository : IOrdersRepository
     {
         public Task AddCustomerAsync(Orders order)
         {
