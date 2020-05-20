@@ -13,6 +13,7 @@ namespace SleepingSelkie.Controllers
 {
     public class OrderController : Controller
     {
+        int selectedStore = 0;
         private readonly IOrdersRepository ordersRepository;
         public OrderController(IOrdersRepository orders)
         {
@@ -22,19 +23,25 @@ namespace SleepingSelkie.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Recieves the Inventory List Form and posts the info into the 
+        /// Order View List so I can use it 
+        /// </summary>
+        /// <param name="listModel"></param>
+        /// <returns></returns>
         #region OrderList and save current order to the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Order(OrderListModel listModel)
         {
-            
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    for (var i = 0;i<listModel.order.Count;i++)
+                    for (var i = 0; i < listModel.order.Count; i++)
                     {
-                        if (listModel.order[i].Quantity <listModel.order[i].OrderAmount)
+                        if (listModel.order[i].Quantity < listModel.order[i].OrderAmount)
                         {
                             ViewBag.Message = string.Format("You have chosen more than the available inventory on One or more Items");
                             return RedirectToAction("Inv", "Customer");
@@ -88,12 +95,95 @@ namespace SleepingSelkie.Controllers
             }
 
         }
-    
         #endregion
+        /// <summary>
+        /// Retrieves the info from the orders repository and a
+        /// assigns it to to its correlating order, creates an I enumerable 
+        /// out of the data which is then passed into a view that iterates through 
+        /// the list 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> CustomerOrders()
+        {
+            IEnumerable<Orders> orders = await ordersRepository.GetOrdersByCustomer(HttpContext.Session.GetString("CustPhoneNumber"));
+            var orderModels = orders.Select(x => new OrderViewModel
+            {
+                CustomerPhoneNumber = x.CustomerID,
+                CustomerName = x.CustomerName,
+                StoreName = x.StoreName,
+                ManaPotionsBought =x.ManaPotionsBought,
+                HealthPotionsBought =x.HealthPotionsBought,
+                StaminaPotionsBought =x.StaminaPotionsBought,
+                MagicWandsBought =x.MagicWandsBought,
+                ClericsTalismanBought=x.ClericsTalismanBought,
+                Date=x.Date,
 
-        /*  public async Task<ActionResult> customerOrders()
-          { 
+            });
+            return View(orderModels);
+        }
+        #region Select Store Actions for LayoutPage
+        /// <summary>
+        /// Sets a store value to figure out which store the customer is looking at
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult setStoreA()
+        {
+            HttpContext.Session.SetInt32("Store", 1);
+          return  RedirectToAction("StoreOrders", "Order");
+        }
+        /// <summary>
+        /// Sets a session value to return which store a customer is looking at
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult setStoreB()
+        {
+            HttpContext.Session.SetInt32("Store", 2);
+            return RedirectToAction("StoreOrders", "Order");
+        }
+        /// <summary>
+        /// Sets a Session value to store which store the customer is looking at
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult setStoreC()
+        {
+            HttpContext.Session.SetInt32("Store", 3);
+            return RedirectToAction("StoreOrders", "Order");
+        }
+        #endregion
+        /// <summary>
+        /// Checks the store value that is saved in the session and 
+        /// returns a correlating IEnumerable from the Database 
+        /// that is then iterated through in a list 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> StoreOrders()
+        {
+            var id =1;
+            if (HttpContext.Session.GetInt32("Store") == 1)
+            {
+                id = 1;
+            }
+            else if (HttpContext.Session.GetInt32("Store") == 2)
+            {
+                id = 2;
+            }
+            else id = 3;
+            IEnumerable<Orders> orders = await ordersRepository.GetOrdersByStore(id);
+            var orderModels = orders.Select(x => new OrderViewModel
+            {
+                CustomerPhoneNumber = x.CustomerID,
+                CustomerName = x.CustomerName,
+                StoreName = x.StoreName,
+                ManaPotionsBought = x.ManaPotionsBought,
+                HealthPotionsBought = x.HealthPotionsBought,
+                StaminaPotionsBought = x.StaminaPotionsBought,
+                MagicWandsBought = x.MagicWandsBought,
+                ClericsTalismanBought = x.ClericsTalismanBought,
+                Date = x.Date,
 
-          }*/
+            });
+            return View(orderModels);
+        }
+
     }
 }

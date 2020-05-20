@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using SleepingSelkieBusinessLogic.BusinessModels;
 
 namespace SleepingSelkie.Models
-{
+{/// <summary>
+/// Inventory ViewModel to pass info to the view
+/// </summary>
     public class InventoryViewModel  
     {
         [Display (Name ="Store")]

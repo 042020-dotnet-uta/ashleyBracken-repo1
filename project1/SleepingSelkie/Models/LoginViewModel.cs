@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SleepingSelkie.Models
-{
+{/// <summary>
+/// Login View Model to pass info to the view
+/// </summary>
     public class LoginViewModel
     {
         [Display(Name = "First Name")]

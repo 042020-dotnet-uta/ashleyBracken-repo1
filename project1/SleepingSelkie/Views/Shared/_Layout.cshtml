@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 nav nav-tabs">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SleepingSelkie</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,23 +24,38 @@
                             <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white-50" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white-50" asp-area="" asp-controller="Customer" asp-action="GoToMyStore">My Store</a>
-                        </li>
-                        <li class="nav-item">
-                            @{ var name = Context.Session.GetString("CustName");
-                                if (name == null)
-                                {
-                                    <a class="nav-link text-white-50" asp-area="" asp-controller="Customer" asp-action="Login">Login</a>
-                                }
-                                else
-                                {<p class="text-right"> <span>Welcome Back @name</span></p>} }
+                            <div class="btn-group">
+                                <a class="nav-link text-white-50" asp-area="" asp-controller="Customer" asp-action="GoToMyStore">My Store</a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"Dropdown link</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="setStoreA">Sleeping Selkie Primary Location</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="setStoreB">Sleeping Selkie Primary Location</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="setStoreC">Sleeping Selkie Location Three</a>
+                                        <div class="dropdown-divider"></div>
+                                        @{ var name = Context.Session.GetString("CustName");
+                                            if (name != null)
+                                            {
+                                                <a class="dropdown-item" asp-area="" asp-controller="Order" asp-action="CustomerOrders">Customer Orders</a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
                         </li>
                     </ul>
+
                 </div>
             </div>
+            <ul class="nav justify-content-end">
+                <li>
+                    @{
+                        if (name == null)
+                        {
+                            <a class="nav-link text-white-50" asp-area="" asp-controller="Customer" asp-action="Login">Login</a>
+                        }
+                        else
+                        {<p class="text-right"> Welcome Back @name</p>} }
+                </li>
+            </ul>
         </nav>
     </header>
     <div class="container">

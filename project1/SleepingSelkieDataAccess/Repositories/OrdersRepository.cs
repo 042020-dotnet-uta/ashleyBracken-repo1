@@ -49,19 +49,36 @@ namespace SleepingSelkieDataAccess.Repositories
             {
                 StoreName = x.Store.StoreName,
                 CustomerID = x.Customer.CustomerID,
+                CustomerName = x.Customer.FirstName + " " + x.Customer.LastName,
                 ManaPotionsBought = x.ManaPotionsBought,
                 StaminaPotionsBought = x.StaminaPotionsBought,
                 HealthPotionsBought = x.HealthPotionsBought,
                 ClericsTalismanBought = x.ClericsTalismanBought,
                 MagicWandsBought = x.ClericsTalismanBought,
-                Date =x.Date,
-            });
+                Date = x.Date,
+            }) ;
       
         }
 
-        public Task<IEnumerable<Orders>> GetOrdersByStore(int storeID)
+        public async Task<IEnumerable<Orders>> GetOrdersByStore(int storeID)
         {
-            throw new NotImplementedException();
+            var orders = await dbContext.Orders
+                 .Include(x => x.Store)
+                 .Include(x => x.Customer)
+                 .Where(x => x.Store.StoreID== storeID).ToListAsync();
+
+            return orders.Select(x => new SleepingSelkieBusinessLogic.BusinessModels.Orders
+            {
+                StoreName = x.Store.StoreName,
+                CustomerID = x.Customer.CustomerID,
+                CustomerName = x.Customer.FirstName + " " + x.Customer.LastName,
+                ManaPotionsBought = x.ManaPotionsBought,
+                StaminaPotionsBought = x.StaminaPotionsBought,
+                HealthPotionsBought = x.HealthPotionsBought,
+                ClericsTalismanBought = x.ClericsTalismanBought,
+                MagicWandsBought = x.ClericsTalismanBought,
+                Date = x.Date,
+            });
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SleepingSelkie.Models.OrderViewModel>
+
+@{
+    ViewData["Title"] = "CustomerOrders";
+}
+
+<h1>Customer Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManaPotionsBought)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthPotionsBought)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StaminaPotionsBought)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MagicWandsBought)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClericsTalismanBought)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManaPotionsBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HealthPotionsBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaminaPotionsBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MagicWandsBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClericsTalismanBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

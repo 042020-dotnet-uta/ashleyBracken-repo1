@@ -8,7 +8,9 @@ using System.ComponentModel;
 using SleepingSelkieBusinessLogic.BusinessModels;
 
 namespace SleepingSelkie.Models
-{
+{/// <summary>
+/// Customer View Model to pass info to the view
+/// </summary>
     public class CustomerViewModel 
     {
         [Display(Name = "First Name")]

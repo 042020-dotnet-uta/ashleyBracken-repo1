@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SleepingSelkieBusinessLogic.IRepositories
 {
+    /// <summary>
+    /// Order Interface which acts as an intermediary between the business model and data model. 
+    /// </summary>
    public interface IOrdersRepository
     {
         Task AddOrdersAsync(Orders order);

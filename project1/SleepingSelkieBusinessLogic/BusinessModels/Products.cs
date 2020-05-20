@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SleepingSelkieBusinessLogic.BusinessModels
 {
+    /// <summary>
+    /// Products Business Model
+    /// </summary>
     public class Products
     {
         public int ProductID { get; set; }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace SleepingSelkieBusinessLogic.BusinessModels
-{
+{/// <summary>
+/// Customer Business Model
+/// </summary>
    public class Customer
     {
         public string PhoneNumber { get; set; }

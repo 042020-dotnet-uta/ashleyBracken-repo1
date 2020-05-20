@@ -24,8 +24,11 @@ namespace SleepingSelkie.Controllers
             inventoryRepository = repository;
             custRepository = customerRepository;
         }
-
-
+        /// <summary>
+        /// Get Login info from the customer
+        /// </summary>
+        /// <returns></returns>
+        #region GetLogin
         [HttpGet]
         public ActionResult Login()
         {
@@ -33,7 +36,13 @@ namespace SleepingSelkie.Controllers
             ViewBag.Message = "Customer Login";
             return View(modelView);
         }
-
+        #endregion
+        /// <summary>
+        /// Post the recieved Login Info
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        #region PostLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
@@ -64,7 +73,12 @@ namespace SleepingSelkie.Controllers
             }
             return View();
         }
-
+        #endregion
+        /// <summary>
+        /// Get Sign UP info from the customer
+        /// </summary>
+        /// <returns></returns>
+        #region Get Sign UP
         [HttpGet]
         public ActionResult SignUp()
         {
@@ -72,7 +86,15 @@ namespace SleepingSelkie.Controllers
             ViewBag.Message = "Customer Sign Up";
             return View(modelView);
         }
-
+        #endregion
+        /// <summary>
+        /// Posts the sign in info recieved from the form 
+        /// Validates antiForgery token. 
+        /// Adds Customer 
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        #region PostSignUP
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SignUp(CustomerViewModel viewModel)
@@ -103,16 +125,29 @@ namespace SleepingSelkie.Controllers
                 return View(viewModel);
             }
         }
+        #endregion
+        /// <summary>
+        /// Adds Funtionality to go to the users
+        /// Preferred Store
+        /// </summary>
+        /// <returns></returns>
+        #region Go to My Store
         public ActionResult GoToMyStore()
         {
             if (HttpContext.Session.GetString("CustName") != null)
-            {
-                
+            {  
                 return RedirectToAction("Inv", "Customer");
             }
             else return RedirectToAction("Login", "Customer");
         }
-
+        #endregion
+        /// <summary>
+        /// Creates a list of products for each location 
+        /// the user can then purchase which ever items they would like to 
+        /// Posts to the orders controller
+        /// </summary>
+        /// <returns></returns>
+        #region StoreInventories
         public async Task<ActionResult> Inv()
         {
             int id = 1;
@@ -137,5 +172,6 @@ namespace SleepingSelkie.Controllers
             }).ToList();
             return View(invModels); 
         }
+        #endregion
     }
 }

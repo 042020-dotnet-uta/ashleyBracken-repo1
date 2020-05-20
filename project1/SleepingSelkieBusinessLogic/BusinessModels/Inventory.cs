@@ -6,6 +6,9 @@ namespace SleepingSelkieBusinessLogic.BusinessModels
 {
    public  class Inventory
     {
+        /// <summary>
+        /// Invenotry Businness Model
+        /// </summary>
         public int InventoryID { get; set; }
         public Store Store { get; set; }
         public string StoreName { get; set; }
