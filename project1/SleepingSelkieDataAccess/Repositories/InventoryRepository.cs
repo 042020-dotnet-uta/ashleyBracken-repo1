@@ -30,7 +30,8 @@ namespace SleepingSelkieDataAccess.Repositories
 
         public async Task<IEnumerable<SleepingSelkieBusinessLogic.BusinessModels.Inventory>> GetAllInvByStoreID(int storeID)
         {
-            var inventories = await dbContext.Inventories.Include(p=>p.Products)
+            var inventories = await dbContext.Inventories
+           .Include(p=>p.Products)
             .Include(s=>s.Store)
             .Where(i => i.Store.StoreID == storeID).ToListAsync();
 

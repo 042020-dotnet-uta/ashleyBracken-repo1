@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Microsoft.ServiceModel.Samples" elementFormDefault="qualified" targetNamespace="http://Microsoft.ServiceModel.Samples" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/GettingStartedLib" />
+  <xs:element name="Total">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="fruits" nillable="true" type="q1:ArrayOfFruit" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TotalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TotalResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAFruit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="fruitList" nillable="true" type="q2:ArrayOfFruit" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="fruit" nillable="true" type="q3:Fruit" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAFruitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="AddAFruitResult" nillable="true" type="q4:ArrayOfFruit" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveAFruit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="fruitList" nillable="true" type="q5:ArrayOfFruit" />
+        <xs:element minOccurs="0" name="index" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveAFruitResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/GettingStartedLib" minOccurs="0" name="RemoveAFruitResult" nillable="true" type="q6:ArrayOfFruit" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

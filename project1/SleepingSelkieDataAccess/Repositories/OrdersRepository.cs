@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
-
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 
 namespace SleepingSelkieDataAccess.Repositories
 {
@@ -17,6 +18,7 @@ namespace SleepingSelkieDataAccess.Repositories
         {
             dbContext = selkieContext;
         }
+        #region Add NewOrder
         public async Task AddOrdersAsync(SleepingSelkieBusinessLogic.BusinessModels.Orders order)
         {
 
@@ -36,10 +38,25 @@ namespace SleepingSelkieDataAccess.Repositories
             dbContext.Add(newOrder);
             await dbContext.SaveChangesAsync();
         }
-
-        public Task<IEnumerable<Orders>> GetOrdersByCustomer(string customerID)
+        #endregion
+        public async Task<IEnumerable<Orders>> GetOrdersByCustomer(string customerID)
         {
-            throw new NotImplementedException();
+            var orders = await dbContext.Orders
+                .Include(x => x.Store)
+                .Include(x => x.Customer)
+                .Where(x => x.Customer.CustomerID == customerID).ToListAsync();
+            return orders.Select(x => new SleepingSelkieBusinessLogic.BusinessModels.Orders
+            {
+                StoreName = x.Store.StoreName,
+                CustomerID = x.Customer.CustomerID,
+                ManaPotionsBought = x.ManaPotionsBought,
+                StaminaPotionsBought = x.StaminaPotionsBought,
+                HealthPotionsBought = x.HealthPotionsBought,
+                ClericsTalismanBought = x.ClericsTalismanBought,
+                MagicWandsBought = x.ClericsTalismanBought,
+                Date =x.Date,
+            });
+      
         }
 
         public Task<IEnumerable<Orders>> GetOrdersByStore(int storeID)

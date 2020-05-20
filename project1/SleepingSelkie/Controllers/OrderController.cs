@@ -22,15 +22,25 @@ namespace SleepingSelkie.Controllers
         {
             return View();
         }
-
+        #region OrderList and save current order to the database
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async  Task <ActionResult> Order (OrderListModel listModel)
+        public async Task<ActionResult> Order(OrderListModel listModel)
         {
+            
             try
             {
                 if (ModelState.IsValid)
                 {
+                    for (var i = 0;i<listModel.order.Count;i++)
+                    {
+                        if (listModel.order[i].Quantity <listModel.order[i].OrderAmount)
+                        {
+                            ViewBag.Message = string.Format("You have chosen more than the available inventory on One or more Items");
+                            return RedirectToAction("Inv", "Customer");
+                        }
+                    }
+                    #region Set Current Order View Model Info
                     var viewModel = new OrderViewModel
                     {
                         CustomerName = HttpContext.Session.GetString("CustName"),
@@ -48,7 +58,8 @@ namespace SleepingSelkie.Controllers
                         .Where(x => x.ProductName == "Magic Wand").Select(x => x.OrderAmount).FirstOrDefault(),
                         Date = DateTime.Today,
                     };
-
+                    #endregion
+                    #region Set New Order
                     var order = new Orders
                     {
                         CustomerID = viewModel.CustomerPhoneNumber,
@@ -62,15 +73,27 @@ namespace SleepingSelkie.Controllers
                     };
                     await ordersRepository.AddOrdersAsync(order);
                     return View(viewModel);
+                    #endregion
                 }
-                else return RedirectToAction("Index", " Home");
+                else
+                {
+                    ModelState.AddModelError("InvalidOrderInfo", "You most likely tried to order more than what is in Stock of an item, please try again");
+                    return RedirectToAction("Inv", "Customer");
+                }
             }
             catch (InvalidOperationException e)
             {
-                ModelState.AddModelError("Invalid Order Info", e.Message);
-                return RedirectToAction("Index", " Home");
+                ModelState.AddModelError("InvalidOrderInfo", "You most likely tried to order more than what is in Stock of an item, please try again");
+                return View();
             }
-        }
 
+        }
+    
+        #endregion
+
+        /*  public async Task<ActionResult> customerOrders()
+          { 
+
+          }*/
     }
 }

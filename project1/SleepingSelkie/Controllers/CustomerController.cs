@@ -9,12 +9,12 @@ using SleepingSelkieBusinessLogic.IRepositories;
 using SleepingSelkieBusinessLogic.BusinessModels;
 using SleepingSelkie.Models;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 
 namespace SleepingSelkie.Controllers
 {
     public class CustomerController : Controller
     {
-        
         private readonly IInventoryRepository inventoryRepository;
         private readonly ICustomerRepository custRepository;
         public static string curCustName { get; set; }
@@ -24,6 +24,7 @@ namespace SleepingSelkie.Controllers
             inventoryRepository = repository;
             custRepository = customerRepository;
         }
+
 
         [HttpGet]
         public ActionResult Login()
@@ -37,28 +38,18 @@ namespace SleepingSelkie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
-            int id;
+
             try
             {
                 if (ModelState.IsValid)
                 {
                     var customer = await custRepository.GetCustomerByName(viewModel.FirstName, viewModel.LastName);
-                    curCustName = customer.FirstName +" "+ customer.LastName;
+                    curCustName = customer.FirstName + " " + customer.LastName;
                     curCustphoneNumber = customer.PhoneNumber;
-                    HttpContext.Session.SetString("CustName",curCustName);
+                    HttpContext.Session.SetString("CustName", curCustName);
                     HttpContext.Session.SetString("CustPhoneNumber", curCustphoneNumber);
-
-                    if (customer.StoreName == "SleepingSelkiePrimaryLocation")
-                    {
-                        id = 1;
-                    }
-                    else if (customer.StoreName == "SleepingSelkieSecondaryLocation")
-                    {
-                        id = 2;
-                    }
-                    else id = 3;
-
-                    return RedirectToAction("Inv", "Customer", new { @id = id });
+                    HttpContext.Session.SetString("PreferredStore", customer.StoreName);
+                    return RedirectToAction("Inv", "Customer");
 
                 }
                 else return View("Index", "Home");
@@ -77,7 +68,7 @@ namespace SleepingSelkie.Controllers
         [HttpGet]
         public ActionResult SignUp()
         {
-            var modelView =  new CustomerViewModel { };
+            var modelView = new CustomerViewModel { };
             ViewBag.Message = "Customer Sign Up";
             return View(modelView);
         }
@@ -86,24 +77,14 @@ namespace SleepingSelkie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SignUp(CustomerViewModel viewModel)
         {
-            try 
+            try
             {
                 //Serverside validation to double check the info provided
                 if (ModelState.IsValid)
                 {
-                    int id;
                     curCustName = viewModel.FirstName;
                     curCustphoneNumber = viewModel.PhoneNumber;
-                    if (viewModel.storeName.ToString() == "SleepingSelkiePrimaryLocation")
-                    {
-                        id = 1;
-                    }
-                    else if (viewModel.storeName.ToString() == "SleepingSelkieSecondaryLocation")
-                    {
-                        id = 2;
-                    }
-                    else id = 3;
-
+                    HttpContext.Session.SetString("PreferredStore", viewModel.storeName.ToString());
                     var customer = new Customer
                     {
                         FirstName = viewModel.FirstName,
@@ -112,8 +93,7 @@ namespace SleepingSelkie.Controllers
                         StoreName = viewModel.storeName.ToString(),
                     };
                     await custRepository.AddCustomerAsync(customer);
-
-                    return RedirectToAction("Inv","Customer",new { @id=id});
+                    return RedirectToAction("Inv", "Customer");
                 }
                 else return View(viewModel);
             }
@@ -123,10 +103,27 @@ namespace SleepingSelkie.Controllers
                 return View(viewModel);
             }
         }
-
-        [HttpGet]
-        public async Task<ActionResult>  Inv (int id)
+        public ActionResult GoToMyStore()
         {
+            if (HttpContext.Session.GetString("CustName") != null)
+            {
+                
+                return RedirectToAction("Inv", "Customer");
+            }
+            else return RedirectToAction("Login", "Customer");
+        }
+
+        public async Task<ActionResult> Inv()
+        {
+            int id = 1;
+            if (HttpContext.Session.GetString("PreferredStore") == "SleepingSelkiePrimaryLocation")
+            {
+              id = 1;
+            }
+            if (HttpContext.Session.GetString("PreferredStore")== "SleepingSelkieSecondaryLocation")
+            {
+            }
+            else id = 3;
             IEnumerable<Inventory> inv = await inventoryRepository.GetAllInvByStoreID(id);
             var invModels = inv.Select(i => new InventoryViewModel
             {
@@ -137,8 +134,8 @@ namespace SleepingSelkie.Controllers
                 Quantity = i.ProductQuantity,
                 OrderAmount = 0,
 
-            }).ToList() ;
-            return View(invModels);
-        } 
+            }).ToList();
+            return View(invModels); 
+        }
     }
 }

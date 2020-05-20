@@ -26,8 +26,7 @@ namespace SleepingSelkie.Models
         public int Quantity { get; set;}
 
         [Display(Name = "Order Amount")]
-        [Required]
-        [Range(0, 100, ErrorMessage = "Please try a different amount")]
+        [Range(0,100,ErrorMessage ="Please Enter A valid amount")]
         public int OrderAmount { get; set; }
     }
 }

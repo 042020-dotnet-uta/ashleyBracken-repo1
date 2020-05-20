@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Microsoft.ServiceModel.Samples" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Microsoft.ServiceModel.Samples" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://Microsoft.ServiceModel.Samples/Imports">
+      <xsd:import namespace="http://Microsoft.ServiceModel.Samples" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/GettingStartedLib" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICalculator_Total_InputMessage">
+    <wsdl:part name="parameters" element="tns:Total" />
+  </wsdl:message>
+  <wsdl:message name="ICalculator_Total_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TotalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICalculator_AddAFruit_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAFruit" />
+  </wsdl:message>
+  <wsdl:message name="ICalculator_AddAFruit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAFruitResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICalculator_RemoveAFruit_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveAFruit" />
+  </wsdl:message>
+  <wsdl:message name="ICalculator_RemoveAFruit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveAFruitResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICalculator">
+    <wsdl:operation name="Total">
+      <wsdl:input wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/Total" message="tns:ICalculator_Total_InputMessage" />
+      <wsdl:output wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/TotalResponse" message="tns:ICalculator_Total_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAFruit">
+      <wsdl:input wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/AddAFruit" message="tns:ICalculator_AddAFruit_InputMessage" />
+      <wsdl:output wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/AddAFruitResponse" message="tns:ICalculator_AddAFruit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAFruit">
+      <wsdl:input wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/RemoveAFruit" message="tns:ICalculator_RemoveAFruit_InputMessage" />
+      <wsdl:output wsaw:Action="http://Microsoft.ServiceModel.Samples/ICalculator/RemoveAFruitResponse" message="tns:ICalculator_RemoveAFruit_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
