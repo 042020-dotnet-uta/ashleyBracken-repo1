@@ -8,6 +8,7 @@ using SleepingSelkie.Controllers;
 using SleepingSelkieBusinessLogic.BusinessModels;
 using SleepingSelkieBusinessLogic.IRepositories;
 using SleepingSelkie.Models;
+using Microsoft.Extensions.Logging;
 
 namespace SleepingSelkie.Controllers
 {
@@ -15,9 +16,15 @@ namespace SleepingSelkie.Controllers
     {
         int selectedStore = 0;
         private readonly IOrdersRepository ordersRepository;
-        public OrderController(IOrdersRepository orders)
+        private readonly IInventoryRepository inventory;
+        private readonly ILogger<OrderController> _logger;
+
+        public OrderController(IOrdersRepository orders, IInventoryRepository inventoryRepository, ILogger<OrderController> logger)
         {
             ordersRepository = orders;
+            inventory = inventoryRepository;
+            _logger = logger;
+
         }
         public IActionResult Index()
         {
@@ -36,7 +43,7 @@ namespace SleepingSelkie.Controllers
         {
 
             try
-            {
+            {///Checks if Model state is valid
                 if (ModelState.IsValid)
                 {
                     for (var i = 0; i < listModel.order.Count; i++)
@@ -44,9 +51,12 @@ namespace SleepingSelkie.Controllers
                         if (listModel.order[i].Quantity < listModel.order[i].OrderAmount)
                         {
                             ViewBag.Message = string.Format("You have chosen more than the available inventory on One or more Items");
+                           await  inventory.DecreaseInventory(listModel.order[i].ProductName, listModel.order[i].StoreName,listModel.order[i].OrderAmount);
+                            _logger.LogInformation("You have tried to Order too much");
                             return RedirectToAction("Inv", "Customer");
                         }
                     }
+                  ///Sets Current order view model info
                     #region Set Current Order View Model Info
                     var viewModel = new OrderViewModel
                     {
@@ -66,9 +76,11 @@ namespace SleepingSelkie.Controllers
                         Date = DateTime.Today,
                     };
                     #endregion
+                    /// Creates a new order to save to db
                     #region Set New Order
                     var order = new Orders
                     {
+                        ///Sets the values to be saved as an order
                         CustomerID = viewModel.CustomerPhoneNumber,
                         StoreName = viewModel.StoreName,
                         ManaPotionsBought = viewModel.ManaPotionsBought,
@@ -78,16 +90,18 @@ namespace SleepingSelkie.Controllers
                         MagicWandsBought = viewModel.ClericsTalismanBought,
                         Date = DateTime.Today,
                     };
+                    ///Add Order to db
                     await ordersRepository.AddOrdersAsync(order);
+                    ///return created viewmodel
                     return View(viewModel);
                     #endregion
                 }
                 else
-                {
+                {/// Don't save and redirect back to inventory
                     ModelState.AddModelError("InvalidOrderInfo", "You most likely tried to order more than what is in Stock of an item, please try again");
                     return RedirectToAction("Inv", "Customer");
                 }
-            }
+            }///catch exception
             catch (InvalidOperationException e)
             {
                 ModelState.AddModelError("InvalidOrderInfo", "You most likely tried to order more than what is in Stock of an item, please try again");

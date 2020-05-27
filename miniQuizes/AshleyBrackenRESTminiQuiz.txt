@@ -1,0 +1,29 @@
+Question 1: What was the name of Roy Fieldings Dissertation that introduced REST in 2000?
+A.Development and Design Principles for Web Services. 
+B.Architectural Styles and the Design of Network-based Software Architectures
+C. Archetectural Styles and Development of Network-based Software Archetecture.
+D.Programming rules for building web pages. 
+
+Question 2: Which of the following is not a HTTP header that relates to CORS
+A.Origin
+B.Control method
+C.Access-Control-Request-Method
+D.Access-Control-Request-Headers
+
+Queston 3:When was Cross-origin support originally proposed?
+A.February 2002
+B.March 2004
+C.February 2004
+D.March 2002
+ 
+Question 4: Which of the following has no "official " standard?
+A.SOAP based web services
+B.Restful web apis
+C.SOAP web apis 
+D.Restful web services
+
+Question 5:Layered systems allow intermediaries to be introduced when?
+A.Before the communication
+B.Throughout the communication
+C.After the communication
+D.Before and after the communication.

@@ -11,7 +11,7 @@ namespace SleepingSelkieBusinessLogic.IRepositories
     /// </summary>
   public  interface IInventoryRepository
     {
-        Task<IEnumerable<Inventory>> GetAllInvByStoreID(int storeID);
-        Task DecreaseInventory(int productID,int storeID, int purchasedAmount);
+        Task<IEnumerable<Inventory>> GetAllInvByStoreID(int storeName);
+        Task DecreaseInventory(string productID,string storeName, int purchasedAmount);
     }
 }

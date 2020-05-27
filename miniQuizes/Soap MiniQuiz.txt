@@ -1,0 +1,31 @@
+Question 1: Which of the following best describes SOAP nodes. 
+
+A.Rules to be followed when adding features to the SOAP framework
+B. A set of rules formalizing and governing the format of SOAP messages.
+C.{Correct}physical/logical machines with processing units which are used to transmit/forward, receive and process SOAP messages.
+D. Virtual addresseses that process SOAP messages
+
+
+Question 2: Which of the following is a disadvantage of SOAP
+A.It has a standardized interaction model
+B.The protocol is written with minimal verbosity
+C. It too directly uses the HTTP protocol
+D.{Correct}Slow parsing speed of XML
+
+Qustion 3: Prior to version 2 what did the D in WSDL stand for 
+A.{Correct}Definition
+B.Description
+C.Define
+D.Describe
+
+Question 4: Why would you want to limit access to generated WSDL files?
+A.Because WSDL files are SOAP based specifications for describing a web service and are therefore susceptible for attack
+B.{Correct}Because WSDL files are an XML-based specification for describing a web service and are therefore susceptible to attack
+C.Because WSDL Files are JSON based specification for describing a web service and are therefore susceptible to attack
+D.You wouldn't want to because they are secure and not very susceptible for attack natively. 
+
+Question 5: Which of the following represents the information being exchanged between two SOAP nodes
+A.Soap Reciever
+B.Soap Fault
+C.Soap message
+D.Soap Envelope
